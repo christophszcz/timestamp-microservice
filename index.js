@@ -26,11 +26,9 @@ app.get("/api/hello", function(req, res) {
 app.get("/api/:date?", function(req, res, next) {
   next();
 }, function(req, res) {
-  if (Object.prototype.toString.call(d) === "[object Date]") {{
     const inputDate = new Date(req.params.date);
     const miliseconds = inputDate.getTime();
     res.json({ unix: miliseconds });
-  }
 });
 
 // listen for requests :)
