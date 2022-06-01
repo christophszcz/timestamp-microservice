@@ -4,6 +4,7 @@
 // init project
 var express = require('express');
 var app = express();
+var moment = require('moment');
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC
@@ -26,9 +27,12 @@ app.get("/api/hello", function(req, res) {
 app.get("/api/:date?", function(req, res, next) {
   next();
 }, function(req, res) {
-    const inputDate = new Date(req.params.date);
+  const dateParam = req.params.date;
+  if (moment(dateParam).isValid()) {
+    const inputDate = new Date(dateParam);
     const miliseconds = inputDate.getTime();
     res.json({ unix: miliseconds });
+  }
 });
 
 // listen for requests :)
