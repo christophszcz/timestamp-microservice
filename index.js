@@ -28,10 +28,11 @@ app.get("/api/:date?", function(req, res, next) {
   next();
 }, function(req, res) {
   const dateParam = req.params.date;
-  if (moment(dateParam).isValid()) {
+  if (moment(dateParam).isValid() && moment(dateParam,'YYYY-MM-DD', true).isValid()) {
     const inputDate = new Date(dateParam);
     const miliseconds = inputDate.getTime();
-    res.json({ unix: miliseconds });
+    const utcValue = inputDate.toUTCString();
+    res.json({ unix: miliseconds, utc: utcValue });
   }
 });
 
