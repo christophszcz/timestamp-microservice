@@ -33,6 +33,8 @@ app.get("/api/:date?", function(req, res, next) {
     const miliseconds = inputDate.getTime();
     const utcValue = inputDate.toUTCString();
     res.json({ unix: miliseconds, utc: utcValue });
+  } else {
+    res.json({ error : "Invalid Date" });
   }
 });
 
