@@ -12,6 +12,6 @@ Your project can handle dates that can be successfully parsed by new Date(date_s
 
 [X] If the input date string is invalid, the api returns an object having the structure { error : "Invalid Date" }
 
-An empty date parameter should return the current time in a JSON object with a unix key
+[X] An empty date parameter should return the current time in a JSON object with a unix key
 
-An empty date parameter should return the current time in a JSON object with a utc key
+[X] An empty date parameter should return the current time in a JSON object with a utc key

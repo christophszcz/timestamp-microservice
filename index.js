@@ -28,11 +28,16 @@ app.get("/api/:date?", function(req, res, next) {
   next();
 }, function(req, res) {
   const dateParam = req.params.date;
-  if (moment(dateParam).isValid() && moment(dateParam,'YYYY-MM-DD', true).isValid()) {
+  if (!dateParam) {
+    const currentDate = new Date();
+    const currentDateTimeUTC = currentDate.toUTCString();
+    const currentTimeMilliseconds = currentDate.getTime();
+    res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
+  }else if (moment(dateParam).isValid() && moment(dateParam,'YYYY-MM-DD', true).isValid()) {
     const inputDate = new Date(dateParam);
-    const miliseconds = inputDate.getTime();
+    const milliseconds = inputDate.getTime();
     const utcValue = inputDate.toUTCString();
-    res.json({ unix: miliseconds, utc: utcValue });
+    res.json({ unix: milliseconds, utc: utcValue });
   } else {
     res.json({ error : "Invalid Date" });
   }
