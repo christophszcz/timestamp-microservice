@@ -19,7 +19,6 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-// your first API endpoint...
 app.get("/api/hello", function(req, res) {
   res.json({ greeting: 'hello API' });
 });
@@ -28,15 +27,20 @@ app.get("/api/:date?", function(req, res, next) {
   next();
 }, function(req, res) {
   const dateParam = req.params.date;
+  const isValidMillisecondDate = moment(Number(dateParam)).isValid();
+  const isMillisecondNumber = typeof Number(dateParam) === 'number';
+  const isValidDate = moment(dateParam).isValid();
+  const isProperDateFormat = moment(dateParam,'YYYY-MM-DD', true).isValid();
+
   if (!dateParam) {
     const currentDate = new Date();
     const currentDateTimeUTC = currentDate.toUTCString();
     const currentTimeMilliseconds = currentDate.getTime();
     res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
-  } else if (moment(Number(dateParam)).isValid() && typeof Number(dateParam) === 'number') {
+  } else if (isValidMillisecondDate && isMillisecondNumber) {
     const utcConversion = new Date(Number(dateParam)).toUTCString();
     res.json({ unix: dateParam, utc: utcConversion });
-  } else if (moment(dateParam).isValid() && moment(dateParam,'YYYY-MM-DD', true).isValid()) {
+  } else if (isValidDate && isProperDateFormat) {
     const inputDate = new Date(dateParam);
     const milliseconds = inputDate.getTime();
     const utcValue = inputDate.toUTCString();
