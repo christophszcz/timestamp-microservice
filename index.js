@@ -35,7 +35,7 @@ app.get("/api/:date?", function(req, res, next) {
     const currentTimeMilliseconds = currentDate.getTime();
     res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
   } else if (typeof Number(dateParam) === 'number') {
-    res.json({ dateParam, utc: dateParam.toUTCString() });
+    res.json({ unix: dateParam, utc: moment(dateParam).format("DD MMM YYYY") });
   } else if (moment(dateParam).isValid() && moment(dateParam,'YYYY-MM-DD', true).isValid()) {
     const inputDate = new Date(dateParam);
     const milliseconds = inputDate.getTime();
