@@ -50,7 +50,7 @@ app.get("/api/:date?", function(req, res, next) {
   }
 });
 
-// listen for requests :)
+// listen for requests
 var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+  console.log('Your app is here: ' + `http://localhost:${listener.address().port}`);
 });
