@@ -6,7 +6,7 @@ User Stories
 
 [x] A request to /api/1451001600000 should return { unix: 1451001600000, utc: "Fri, 25 Dec 2015 00:00:00 GMT" }
 
-Your project can handle dates that can be successfully parsed by new Date(date_string)
+[x] Your project can handle dates that can be successfully parsed by new Date(date_string)
 
 [X] If the input date string is invalid, the api returns an object having the structure { error : "Invalid Date" }
 

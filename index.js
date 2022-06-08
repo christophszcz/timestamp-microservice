@@ -32,22 +32,26 @@ app.get("/api/:date?", function(req, res, next) {
   const isValidDate = moment(dateParam).isValid();
   const isProperDateFormat = moment(dateParam,'YYYY-MM-DD', true).isValid();
 
-  if (!dateParam) {
-    const currentDate = new Date();
-    const currentDateTimeUTC = currentDate.toUTCString();
-    const currentTimeMilliseconds = currentDate.getTime();
-    res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
-  } else if (isValidMillisecondDate && isMillisecondNumber) {
-    const millisecondsValue = req.params.date;
-    const utcConversion = new Date(Number(millisecondsValue)).toUTCString();
-    res.json({ unix: millisecondsValue, utc: utcConversion });
-  } else if (isValidDate && isProperDateFormat) {
-    const inputDate = new Date(dateParam);
-    const milliseconds = inputDate.getTime();
-    const utcValue = inputDate.toUTCString();
-    res.json({ unix: milliseconds, utc: utcValue });
-  } else {
-    res.json({ error : "Invalid Date" });
+  try {
+    if (!dateParam) {
+      const currentDate = new Date();
+      const currentDateTimeUTC = currentDate.toUTCString();
+      const currentTimeMilliseconds = currentDate.getTime();
+      res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
+    } else if (isValidMillisecondDate && isMillisecondNumber) {
+      const millisecondsValue = req.params.date;
+      const utcConversion = new Date(Number(millisecondsValue)).toUTCString();
+      res.json({ unix: millisecondsValue, utc: utcConversion });
+    } else if (isValidDate && isProperDateFormat) {
+      const inputDate = new Date(dateParam);
+      const milliseconds = inputDate.getTime();
+      const utcValue = inputDate.toUTCString();
+      res.json({ unix: milliseconds, utc: utcValue });
+    } else {
+      res.json({ error : "Invalid Date" });
+    }
+  } catch(err) {
+    throw `The following error has occured: ${err}`;
   }
 });
 
