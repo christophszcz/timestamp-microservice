@@ -39,7 +39,7 @@ app.get("/api/:date?", function(req, res, next) {
       const currentTimeMilliseconds = currentDate.getTime();
       res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
     } else if (isValidMillisecondDate && isMillisecondNumber) {
-      const millisecondsValue = req.params.date;
+      const millisecondsValue = Number(req.params.date);
       const utcConversion = new Date(Number(millisecondsValue)).toUTCString();
       res.json({ unix: millisecondsValue, utc: utcConversion });
     } else if (isValidDate && isProperDateFormat) {
