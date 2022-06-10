@@ -26,7 +26,7 @@ app.get("/api/hello", function(req, res) {
 app.get("/api/:date?", function(req, res, next) {
   next();
 }, function(req, res) {
-  const dateParam = new Date(req.params.date);
+  const dateParam = req.params.date;
   const isValidMillisecondDate = moment(Number(req.params.date)).isValid();
   const isMillisecondNumber = typeof Number(req.params.date) === 'number';
   const isValidDate = moment(dateParam).isValid();
