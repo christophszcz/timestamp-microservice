@@ -1,5 +1,5 @@
 ## Timestamp Microservice
 
-[See it live](https://agile-fortress-43924.herokuapp.com/api/)
+[See it live](https://agile-fortress-43924.herokuapp.com)
 
 This a timestamp API built using Node.js, Express, and Moment.js.
