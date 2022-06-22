@@ -31,25 +31,31 @@ app.get("/api/:date?", function(req, res, next) {
   const isMillisecondNumber = typeof Number(req.params.date) === 'number';
   const isValidDate = moment(dateParam).isValid();
   const isProperDateFormat = moment(dateParam,'YYYY-MM-DD', true).isValid();
+  const date = { unix: undefined, utc: undefined };
 
   try {
     if (!req.params.date) {
       const currentDate = new Date();
       const currentDateTimeUTC = currentDate.toUTCString();
       const currentTimeMilliseconds = currentDate.getTime();
-      res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
+      date.unix = currentTimeMilliseconds;
+      date.utc = currentDateTimeUTC;
     } else if (isValidMillisecondDate && isMillisecondNumber) {
       const millisecondsValue = Number(req.params.date);
       const utcConversion = new Date(millisecondsValue).toUTCString();
-      res.json({ unix: millisecondsValue, utc: utcConversion });
+      date.unix = millisecondsValue;
+      date.utc = utcConversion;
     } else if (isValidDate && isProperDateFormat) {
       const inputDate = new Date(dateParam);
       const milliseconds = inputDate.getTime();
       const utcValue = inputDate.toUTCString();
-      res.json({ unix: milliseconds, utc: utcValue });
-    } else {
+      date.unix = milliseconds;
+      date.utc = utcValue;
+    } else if (!isValidDate || !isProperDateFormat || !isValidMillisecondDate || !isMillisecondNumber) {
       res.json({ error : "Invalid Date" });
+      return;
     }
+    res.json(date);
   } catch(err) {
     throw `The following error has occured: ${err}`;
   }
