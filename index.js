@@ -33,7 +33,7 @@ app.get("/api/:date?", function(req, res, next) {
   const isProperDateFormat = moment(dateParam,'YYYY-MM-DD', true).isValid();
 
   try {
-    if (!dateParam) {
+    if (!req.params.date) {
       const currentDate = new Date();
       const currentDateTimeUTC = currentDate.toUTCString();
       const currentTimeMilliseconds = currentDate.getTime();
