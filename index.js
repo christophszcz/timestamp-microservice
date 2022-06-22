@@ -26,7 +26,7 @@ app.get("/api/hello", function(req, res) {
 app.get("/api/:date?", function(req, res, next) {
   next();
 }, function(req, res) {
-  const dateParam = req.params.date;
+  const dateParam = new Date(req.params.date);
   const isValidMillisecondDate = moment(Number(req.params.date)).isValid();
   const isMillisecondNumber = typeof Number(req.params.date) === 'number';
   const isValidDate = moment(dateParam).isValid();
@@ -40,7 +40,7 @@ app.get("/api/:date?", function(req, res, next) {
       res.json({ unix: currentTimeMilliseconds, utc: currentDateTimeUTC });
     } else if (isValidMillisecondDate && isMillisecondNumber) {
       const millisecondsValue = Number(req.params.date);
-      const utcConversion = new Date(Number(millisecondsValue)).toUTCString();
+      const utcConversion = new Date(millisecondsValue).toUTCString();
       res.json({ unix: millisecondsValue, utc: utcConversion });
     } else if (isValidDate && isProperDateFormat) {
       const inputDate = new Date(dateParam);
