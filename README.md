@@ -4,6 +4,6 @@
 
 This a timestamp API built using Node.js, Express, and Moment.js.
 
-* Clone this repo: `git@github.com:christophszcz/timestamp-microservice.git`
-* Install all dependencies: `npm install`
-* Run the project: `npm start`
+1. Clone this repo: `git@github.com:christophszcz/timestamp-microservice.git`
+2. Install all dependencies: `npm install`
+3. Run the project: `npm start`
